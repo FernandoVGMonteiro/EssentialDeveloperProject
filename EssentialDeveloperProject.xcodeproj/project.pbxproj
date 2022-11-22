@@ -21,6 +21,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F9790AE3292D48BB00FB455F /* EssentialFeedModules */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = EssentialFeedModules; path = EssentialDeveloperProject/EssentialFeedModules; sourceTree = "<group>"; };
 		F9CE89D02915AA3D005EED47 /* EssentialDeveloperProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EssentialDeveloperProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9CE89E12915AA3D005EED47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9CE89EB2915AD4D005EED47 /* EssentialDeveloperProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialDeveloperProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,6 +49,7 @@
 		F9CE89C72915AA3D005EED47 = {
 			isa = PBXGroup;
 			children = (
+				F9790AE3292D48BB00FB455F /* EssentialFeedModules */,
 				F9CE89D22915AA3D005EED47 /* EssentialDeveloperProject */,
 				F9CE89EC2915AD4D005EED47 /* EssentialDeveloperProjectTests */,
 				F9CE89D12915AA3D005EED47 /* Products */,
@@ -129,6 +131,7 @@
 				TargetAttributes = {
 					F9CE89CF2915AA3D005EED47 = {
 						CreatedOnToolsVersion = 14.1;
+						LastSwiftMigration = 1410;
 					};
 					F9CE89EA2915AD4D005EED47 = {
 						CreatedOnToolsVersion = 14.1;
@@ -318,6 +321,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AYV4ZU8A25;
@@ -336,6 +340,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = fernando.monteiro.EssentialDeveloperProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -346,6 +351,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AYV4ZU8A25;
