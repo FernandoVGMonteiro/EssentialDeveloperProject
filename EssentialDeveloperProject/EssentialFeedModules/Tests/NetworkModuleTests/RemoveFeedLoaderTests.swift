@@ -9,26 +9,35 @@ import XCTest
 
 class RemoteFeedLoader {
     func load() {
-        HTTPClient.shared.requestedURL = URL(string: "http://a-url.com")
+        HTTPClient.shared.get(from: URL(string: "http://a-url.com")!)
     }
 }
 
 // A colaborator to perform the request (could be AF, URLSession...)
 class HTTPClient {
     
-    // Singleton instance (with private initializer, so other objects cannot be created).
-    // Do we need a Singleton? Or can there be other instances of HTTPClient?
-    static let shared = HTTPClient()
+    // Not a singleton, but a global state (it is a variable and does not have a private init)
+    static var shared = HTTPClient()
     
-    private init() {}
+    func get(from url: URL) {}
+}
+
+class HTTPClientSpy: HTTPClient {
     
+    // This variable is used to "spy" on the request and should not be production code
     var requestedURL: URL?
+    
+    override func get(from url: URL) {
+        requestedURL = url
+    }
+    
 }
 
 class RemoteFeedLoaderTests: XCTestCase {
     
     func test_init_doesNotRequestDataFromURL() {
-        let client = HTTPClient.shared
+        let client = HTTPClientSpy()
+        HTTPClient.shared = client
         let _ = RemoteFeedLoader()
         
         XCTAssertNil(client.requestedURL)
@@ -36,7 +45,8 @@ class RemoteFeedLoaderTests: XCTestCase {
     
     func test_load_requestDataFromURL() {
         // Arrange (Given)
-        let client = HTTPClient.shared
+        let client = HTTPClientSpy()
+        HTTPClient.shared = client
         let sut = RemoteFeedLoader()
         
         
