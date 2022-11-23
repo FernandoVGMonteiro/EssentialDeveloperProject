@@ -6,26 +6,8 @@
 //
 
 import XCTest
-
-class RemoteFeedLoader {
-    let url: URL
-    let client: HTTPClient
-    
-    // The client and the url are dependencies to be injected via init
-    init(url: URL, client: HTTPClient) {
-        self.url = url
-        self.client = client
-    }
-    
-    func load() {
-        client.get(from: url)
-    }
-}
-
-// A colaborator to perform the request (could be AF, URLSession...)
-protocol HTTPClient {
-    func get(from url: URL)
-}
+// Not declared as @testable to allow only the necessary elements to be public
+import NetworkModule
 
 class RemoteFeedLoaderTests: XCTestCase {
     
