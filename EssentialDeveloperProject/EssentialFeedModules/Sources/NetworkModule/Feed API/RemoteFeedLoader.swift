@@ -7,9 +7,17 @@
 
 import Foundation
 
+public enum HTTPClientResult {
+    case success(HTTPURLResponse)
+    case failure(Error)
+}
+
 // Can be declared public so other modules can implement it
 public protocol HTTPClient {
-    func get(from url: URL, completion: @escaping (Error?, HTTPURLResponse?) -> Void)
+    // Having a tuple creates impossible scenarios
+    // (ex: having both error / response == nil).
+    // So we replace it with an enum that represents the only two possibilities.
+    func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void)
 }
 
 // Can also be used and initialized in other modules
@@ -32,16 +40,13 @@ public final class RemoteFeedLoader {
     }
     
     public func load(completion: @escaping (Error) -> Void) {
-        client.get(from: url) { error, response in
-            if response != nil {
+        client.get(from: url) { result in
+            switch result {
+            case .success(_):
                 completion(.invalidData)
-                // Sometimes, people forget to return after completion.
-                // That's why it's useful to capture an array inside our
-                // spy, so as to guarantee that the function was completed
-                // onse single time.
-                return
+            case .failure(_):
+                completion(.connectivity)
             }
-            completion(.connectivity)
         }
     }
 }
