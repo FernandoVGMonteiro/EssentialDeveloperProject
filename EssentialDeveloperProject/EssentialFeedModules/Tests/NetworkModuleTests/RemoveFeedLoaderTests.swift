@@ -6,7 +6,6 @@
 //
 
 import XCTest
-// Not declared as @testable to allow only the necessary elements to be public
 import NetworkModule
 
 class RemoteFeedLoaderTests: XCTestCase {
@@ -18,14 +17,11 @@ class RemoteFeedLoaderTests: XCTestCase {
     }
     
     func test_load_requestsDataFromURL() {
-        // Arrange (Given)
         let url = URL(string: "http://a-given-url.com")!
         let (sut, client) = makeSUT(url: url)
         
-        // Act (When)
         sut.load { _ in }
         
-        // Assert (Then)
         XCTAssertEqual(client.requestedURLs, [url])
     }
     
@@ -51,7 +47,6 @@ class RemoteFeedLoaderTests: XCTestCase {
     func test_load_deliversErrorOnNon200HTTPResponse() {
         let (sut, client) = makeSUT()
         
-        // Asserts for different HTTP Response Codes
         let samples = [199, 201, 300, 400, 500].enumerated()
         
         samples.forEach { index, code in
@@ -96,8 +91,6 @@ class RemoteFeedLoaderTests: XCTestCase {
     
     private class HTTPClientSpy: HTTPClient {
         
-        // The spy should capture messages (how many times the message was
-        // invoked, in what order...). Message passing = invoking behavior
         private var messages = [(url: URL, completion: (HTTPClientResult) -> Void)]()
         
         var requestedURLs: [URL] {
@@ -105,7 +98,6 @@ class RemoteFeedLoaderTests: XCTestCase {
         }
         
         func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void) {
-            // As a spy, it only captures values
             messages.append((url, completion))
         }
         
