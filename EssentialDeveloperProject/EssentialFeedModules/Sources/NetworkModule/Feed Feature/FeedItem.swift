@@ -26,6 +26,8 @@ extension FeedItem: Decodable {
         case id
         case description
         case location
+        // We should not have API specific information
+        // Inside the Feature Module
         case imageURL = "image"
     }
 }
