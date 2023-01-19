@@ -31,37 +31,11 @@ public final class RemoteFeedLoader {
         client.get(from: url) { result in
             switch result {
             case let .success(data, response):
-                do {
-                    let items = try FeedItemsMapper.map(data, response)
-                    completion(.success(items))
-                } catch {
-                    completion(.failure(.invalidData))
-                }
+                let result = FeedItemsMapper.map(data, from: response)
+                completion(result)
             case .failure(_):
                 completion(.failure(.connectivity))
             }
-        }
-    }
-}
-
-private class FeedItemsMapper {
-    static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [FeedItem] {
-        guard response.statusCode == 200 else {
-            throw RemoteFeedLoader.Error.invalidData
-        }
-        
-        return try JSONDecoder()
-            .decode(Root.self, from: data)
-            .items.map { $0.item }
-    }
-    
-    // MARK: - Helpers
-    private func map(_ data: Data, from response: HTTPURLResponse) -> Result {
-        do {
-            let items = try FeedItemsMapper.map(data, response)
-            return .success(items)
-        } catch {
-            return .failure(.invalidData)
         }
     }
 }
