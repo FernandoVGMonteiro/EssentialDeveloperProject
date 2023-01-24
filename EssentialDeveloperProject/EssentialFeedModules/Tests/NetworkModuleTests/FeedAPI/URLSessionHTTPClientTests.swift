@@ -27,12 +27,11 @@ class URLSessionHTTPClient {
 class URLSessionHTTPClientTests: XCTestCase {
     
     func test_getFromURL_failsOnRequestError() {
-        // Registering our URLProtocol to be able to handle requests
         URLProtocolStub.startInterceptingRequests()
         
         let url = URL(string: "http://any-url.com")!
         let error = NSError(domain: "any error", code: 1)
-        URLProtocolStub.stub(url: url, error: error)
+        URLProtocolStub.stub(url: url, data: nil, response: nil, error: error)
         
         let sut = URLSessionHTTPClient()
         
@@ -59,11 +58,13 @@ class URLSessionHTTPClientTests: XCTestCase {
         private static var stubs = [URL: Stub]()
         
         private struct Stub {
+            let data: Data?
+            let response: URLResponse?
             let error: Error?
         }
         
-        static func stub(url: URL, error: Error? = nil) {
-            stubs[url] = Stub(error: error)
+        static func stub(url: URL, data: Data?, response: URLResponse?, error: Error? = nil) {
+            stubs[url] = Stub(data: data, response: response, error: error)
         }
         
         static func startInterceptingRequests() {
@@ -74,8 +75,6 @@ class URLSessionHTTPClientTests: XCTestCase {
             URLProtocol.unregisterClass(URLProtocolStub.self)
         }
         
-        // Our URLProtocolStub will only be initialized if we
-        // are able to process the request, that is why the methods are static
         override class func canInit(with request: URLRequest) -> Bool {
             guard let url = request.url else { return false }
             
@@ -86,12 +85,10 @@ class URLSessionHTTPClientTests: XCTestCase {
             return request
         }
         
-        // Instance method, now we are processing the URL
         override func startLoading() {
             guard let url = request.url, let stub = URLProtocolStub.stubs[url] else { return }
             
             if let error = stub.error {
-                // Informing that the request failed
                 client?.urlProtocol(self, didFailWithError: error)
             }
             
