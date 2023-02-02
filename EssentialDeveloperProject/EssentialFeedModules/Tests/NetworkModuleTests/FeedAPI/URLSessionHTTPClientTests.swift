@@ -25,6 +25,24 @@ class URLSessionHTTPClient {
 }
 
 class URLSessionHTTPClientTests: XCTestCase {
+    func test_getFromURL_performsGETRequestWithURL() {
+        URLProtocolStub.startInterceptingRequests()
+        
+        let url = URL(string: "http://any-url.com")!
+        let exp = expectation(description: "Wait for completion")
+
+        URLProtocolStub.observeRequests { request in
+            XCTAssertEqual(request.url, url)
+            XCTAssertEqual(request.httpMethod, "GET")
+            exp.fulfill()
+        }
+        
+        URLSessionHTTPClient().get(from: url) { _ in }
+        
+        waitForExpectations(timeout: 1)
+        
+        URLProtocolStub.stopInterceptingRequests()
+    }
     
     func test_getFromURL_failsOnRequestError() {
         URLProtocolStub.startInterceptingRequests()
@@ -56,6 +74,7 @@ class URLSessionHTTPClientTests: XCTestCase {
     
     private class URLProtocolStub: URLProtocol {
         private static var stub: Stub?
+        private static var requestOberver: ((URLRequest) -> Void)?
         
         private struct Stub {
             let data: Data?
@@ -67,6 +86,11 @@ class URLSessionHTTPClientTests: XCTestCase {
             stub = Stub(data: data, response: response, error: error)
         }
         
+        // We will capture information from the request to validate the parameters we passed
+        static func observeRequests(observer: @escaping (URLRequest) -> Void) {
+            requestOberver = observer
+        }
+        
         static func startInterceptingRequests() {
             URLProtocol.registerClass(URLProtocolStub.self)
         }
@@ -74,11 +98,11 @@ class URLSessionHTTPClientTests: XCTestCase {
         static func stopInterceptingRequests() {
             URLProtocol.unregisterClass(URLProtocolStub.self)
             stub = nil
+            requestOberver = nil
         }
         
         override class func canInit(with request: URLRequest) -> Bool {
-            // We should always intercept the request, so as to never
-            // reach the internet
+            requestOberver?(request)
             return true
         }
         
