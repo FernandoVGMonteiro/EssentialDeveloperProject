@@ -76,8 +76,16 @@ class URLSessionHTTPClientTests: XCTestCase {
     
     // This protects the test from breaking changes
     // Eg.: if we need to pass a dependency to the client
-    private func makeSUT() -> URLSessionHTTPClient {
-        URLSessionHTTPClient()
+    private func makeSUT( file: StaticString = #filePath, line: UInt = #line) -> URLSessionHTTPClient {
+        let sut = URLSessionHTTPClient()
+        trackForMemoryLeaks(sut, file: file, line: line)
+        return sut
+    }
+    
+    private func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, "Instance should have been dealocated. Potential memory leak.", file: file, line: line)
+        }
     }
     
     private class URLProtocolStub: URLProtocol {
