@@ -34,10 +34,15 @@ class EssentioalFeedAPIEndToEndTests: XCTestCase {
     }
     
     // MARK: - Helpers
-    private func getFeedResult() -> LoadFeedResult? {
+    private func getFeedResult(file: StaticString = #filePath, line: UInt = #line) -> LoadFeedResult? {
         let testServerURL = URL(string: "http://essentialdeveloper.com/feed-case-study/test-api/feed")!
         let client = URLSessionHTTPClient()
         let loader = RemoteFeedLoader(url: testServerURL, client: client)
+        
+        // Since we are testing multiple components in integration
+        // it is a good idea to test for memory leaks
+        trackForMemoryLeaks(client, file: file, line: line)
+        trackForMemoryLeaks(loader, file: file, line: line)
         
         let exp = expectation(description: "Wait for request to load")
         
