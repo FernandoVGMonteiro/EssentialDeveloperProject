@@ -16,5 +16,8 @@ let package = Package(
         .testTarget(
             name: "NetworkModuleTests",
             dependencies: ["NetworkModule"]),
+        .testTarget(
+            name: "EssentialFeedAPIEndToEndTests",
+            dependencies: ["NetworkModule"]),
     ]
 )
