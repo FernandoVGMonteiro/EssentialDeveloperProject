@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "EssentialFeedModules"
-               BuildableName = "EssentialFeedModules"
-               BlueprintName = "EssentialFeedModules"
-               ReferencedContainer = "container:">
+               BlueprintIdentifier = "F9CE89CF2915AA3D005EED47"
+               BuildableName = "EssentialDeveloperProject.app"
+               BlueprintName = "EssentialDeveloperProject"
+               ReferencedContainer = "container:EssentialDeveloperProject.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "EssentialFeedModules"
             BuildableName = "EssentialFeedModules"
             BlueprintName = "EssentialFeedModules"
-            ReferencedContainer = "container:">
+            ReferencedContainer = "container:EssentialDeveloperProject/EssentialFeedModules">
          </BuildableReference>
       </CodeCoverageTargets>
       <Testables>
@@ -47,17 +47,18 @@
                BlueprintIdentifier = "NetworkModuleTests"
                BuildableName = "NetworkModuleTests"
                BlueprintName = "NetworkModuleTests"
-               ReferencedContainer = "container:">
+               ReferencedContainer = "container:EssentialDeveloperProject/EssentialFeedModules">
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "NO">
+            skipped = "NO"
+            testExecutionOrdering = "random">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "EssentialFeedAPIEndToEndTests"
                BuildableName = "EssentialFeedAPIEndToEndTests"
                BlueprintName = "EssentialFeedAPIEndToEndTests"
-               ReferencedContainer = "container:">
+               ReferencedContainer = "container:EssentialDeveloperProject/EssentialFeedModules">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -72,6 +73,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "F9CE89CF2915AA3D005EED47"
+            BuildableName = "EssentialDeveloperProject.app"
+            BlueprintName = "EssentialDeveloperProject"
+            ReferencedContainer = "container:EssentialDeveloperProject.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -79,15 +90,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "EssentialFeedModules"
-            BuildableName = "EssentialFeedModules"
-            BlueprintName = "EssentialFeedModules"
-            ReferencedContainer = "container:">
+            BlueprintIdentifier = "F9CE89CF2915AA3D005EED47"
+            BuildableName = "EssentialDeveloperProject.app"
+            BlueprintName = "EssentialDeveloperProject"
+            ReferencedContainer = "container:EssentialDeveloperProject.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
